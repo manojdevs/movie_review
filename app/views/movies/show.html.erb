@@ -21,13 +21,29 @@
 		</tr>
 	</tbody>
 	</table>
+	<%= link_to 'write a review', new_movie_review_path(@movie) ,class: "btn btn-default"%>
 	</div>
+	</div>
+	<div class="col-md-7 col-md-offset-1">
+	<h1 class="review_title"><%= @movie.title %></h1>
+	<p><%= @movie.description %> </p>
+	<% if @reviews.blank? %>
+	<h3>no reviews yet,be the first to add one</h3>
+	<%= link_to "write review",new_movie_review_path(@movie),class: "btn btn-default" %>
+	<%else%>
+	<% @reviews.each do |r| %>
+	<div class="reviews">
+	<p><%= r.rating %></p>
+	<p><%= r.comment %></p>
+	</div>
+	<%end%>
+	<% end %>
 	</div>
 	</div>
 	</div>
 </div>
 <center>
-<button class="btn btn-default"><%= link_to 'Edit', edit_movie_path(@movie) %></button> 
-<button class="btn btn-default"><%= link_to 'Back', movies_path %></button>
+<%= link_to 'Edit', edit_movie_path(@movie),class: "btn btn-default" %>
+<%= link_to 'Back', movies_path,class: "btn btn-default" %>
 </center>
 </div>

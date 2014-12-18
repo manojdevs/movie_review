@@ -1,15 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_movie
 
-  def index
-    @reviews = Review.all
-    
-  end
-
-  def show
-    
-  end
 
   def new
     @review = Review.new
@@ -22,6 +15,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id=current_user.id
+    @review.movie_id=@movie.id
     @review.save
     
   end
@@ -40,7 +34,9 @@ class ReviewsController < ApplicationController
     def set_review
       @review = Review.find(params[:id])
     end
-
+    def set_movie
+      @movie = Movie.find(params[:movie_id])
+    end
     def review_params
       params.require(:review).permit(:rating, :comment)
     end
