@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     @review.user_id=current_user.id
     @review.movie_id=@movie.id
     @review.save
-    
+    redirect_to movie_path(@review.movie_id)
   end
 
   def update
@@ -40,4 +40,5 @@ class ReviewsController < ApplicationController
     def review_params
       params.require(:review).permit(:rating, :comment)
     end
+
 end
